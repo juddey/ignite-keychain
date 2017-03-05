@@ -1,12 +1,11 @@
 {
   "name": "ignite-keychain",
-  "description": "A description of your plugin.",
+  "description": "Add react-native-keychain to your ignite project!",
   "version": "0.0.1",
   "license": "MIT",
   "author": {
-    "name": "Your Name",
-    "email": "test@example.com",
-    "url": "https://example.com/path/to/your/plugin"
+    "name": "Justin Lane",
+    "email": "justin@justinlane.org"
   },
   "scripts": {
     "lint": "standard",
@@ -18,8 +17,7 @@
   "standard": {
     "parser": "babel-eslint"
   },
-  "url": "https://example.com/path/to/your/plugin",
-  "repository": "githuborg/reponame",
+  "repository": "juddey/ignite-keychain",
   "devDependencies": {
     "ava": "^0.18.2",
     "babel-eslint": "^7.1.1",
@@ -29,5 +27,3 @@
     "standard": "^8.6.0"
   }
 }
-
-
