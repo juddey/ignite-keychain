@@ -2,7 +2,7 @@
 // ----------------------------------------------------------------------------
 
 const NPM_MODULE_NAME = 'react-native-keychain'
-const PLUGIN_PATH = '/Users/justin/projects/react-native/ignite-keychain' //__dirname
+const PLUGIN_PATH = '/home/justin/projects/react-native/ignite-keychain' //__dirname
 const APP_PATH = process.cwd()
 
 
