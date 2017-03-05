@@ -33,17 +33,20 @@ const remove = async function (context) {
   // remove the npm module and unlink it
   await ignite.removeModule(NPM_MODULE_NAME, { unlink: true })
 
-  // Example of removing App/Keychain folder
-  // const removeKeychain = await context.prompt.confirm(
-  //   'Do you want to remove App/Keychain?'
-  // )
-  // if (removeKeychain) { filesystem.remove(`${APP_PATH}/App/Keychain`) }
-
-  // Example of unpatching a file
-  // ignite.patchInFile(`${APP_PATH}/App/Config/AppConfig.js`, {
-  //   insert: '',
-  //   replace: `import '../Keychain/Keychain'\n`
-  // )
+  // Remove the Keychain Boilerplate.
+  const removeKeychain = await context.prompt.confirm(
+    'Do you want to remove the Ignite Keychain boilerplate?'
+  )
+  if (removeKeychain) {
+    // Remove the Keychain Example file.
+    filesystem.remove(`${APP_PATH}/App/Services/Keychain.js`)
+    // Remove the patch from LoginSaga.
+    if (filesystem.exists(`${APP_PATH}/App/Sagas/LoginSagas.js`)) {
+      ignite.patchInFile(`${APP_PATH}/App/Sagas/LoginSagas.js`, {
+        delete: `import { storeAuth } from '../Services/Keychain'\n`
+      })
+    }
+  }
 }
 
 // Required in all Ignite plugins
