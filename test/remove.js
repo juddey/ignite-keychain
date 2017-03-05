@@ -13,5 +13,4 @@ test('removes Keychain', async t => {
   await plugin.remove(context)
 
   t.true(removeModule.calledWith('react-native-keychain', { unlink: true }))
-  t.true(removePluginComponentExample.calledWith('KeychainExample.js'))
 })

@@ -2,9 +2,8 @@
 // ----------------------------------------------------------------------------
 
 const NPM_MODULE_NAME = 'react-native-keychain'
-const PLUGIN_PATH = '/home/justin/projects/react-native/ignite-keychain' //__dirname
+const PLUGIN_PATH = '/home/justin/projects/react-native/ignite-keychain' // __dirname
 const APP_PATH = process.cwd()
-
 
 const add = async function (context) {
   const { ignite, filesystem } = context

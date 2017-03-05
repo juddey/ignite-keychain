@@ -10,7 +10,6 @@ Thanx @oblador!
 import * as Keychain from 'react-native-keychain'
 
 export default class IgniteKeychain {
-
   // This function stores the credentials you got from
   // the authentication server. Parameters are examples.
   // url: The site youre authenticating against.
@@ -34,7 +33,7 @@ export default class IgniteKeychain {
   // interact with your API endpoint.
 
   fetchAuth (url) {
-     Keychain
+    Keychain
       .getInternetCredentials(url)
       .then(function (credentials) {
         // You might want to parse the credentials that you get
