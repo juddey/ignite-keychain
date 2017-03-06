@@ -2,9 +2,6 @@ const test = require('ava')
 const sinon = require('sinon')
 const plugin = require('../plugin')
 
-
-
-
 test('removes Keychain and sample code', async t => {
   const removeModule = sinon.spy()
   const confirm = sinon.stub().returns(true)
@@ -26,9 +23,11 @@ test('removes Keychain and sample code', async t => {
   t.true(patchInFile.called)
   t.is(remove.args[0][0], `${process.cwd()}/App/Services/Keychain.js`)
   t.is(patchInFile.args[0][0], `${process.cwd()}/App/Sagas/LoginSagas.js`)
-  t.is(patchInFile.args[0][1].delete, "import { storeAuth } from \'../Services/Keychain\'\n")
+  t.is(
+    patchInFile.args[0][1].delete,
+    "import { storeAuth } from '../Services/Keychain'\n"
+  )
 })
-
 
 test('removes Keychain Module, but leaves sample code intact', async t => {
   const removeModule = sinon.spy()
