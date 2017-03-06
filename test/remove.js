@@ -29,7 +29,7 @@ test('removes Keychain and sample code', async t => {
   )
   t.is(
     patchInFile.args[1][1].delete,
-    "// const auth = yield call(fetchAuth, 'https://your.cool.url')"
+    "// const auth = yield call(fetchAuth, 'https://your.cool.url')\n"
   )
 })
 test('removes Keychain Module, but leaves sample code intact', async t => {
