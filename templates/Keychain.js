@@ -20,12 +20,14 @@ import * as Keychain from 'react-native-keychain'
 export function storeAuth (url, client, token, uid, expiry) {
   let out = [client, token, expiry].join()
   return Keychain.setInternetCredentials(url, uid, out)
-    .then(function () {
-      return { ok: true, error: null }
-    })
-    .catch(function () {
-      return { ok: false, error: 'Failed to get credentials!' }
-    })
+    .then(() => ({
+      ok: true,
+      error: null
+    }))
+    .catch(() => ({
+      ok: false,
+      error: 'Failed to get credentials!'
+    }))
 }
 
 // Retrieves the credentials from the keychain that you stored in storeAuth.
@@ -34,14 +36,16 @@ export function storeAuth (url, client, token, uid, expiry) {
 
 export function fetchAuth (url) {
   return Keychain.getInternetCredentials(url)
-    .then(function (credentials) {
-      // You might want to parse the credentials that you get
-      // out of the keychain here before returning them.
-      return { ok: true, credentials: credentials }
-    })
-    .catch(function () {
-      return { error: 'Failed to get credentials!' }
-    })
+    .then(credentials => ({
+    // You might want to parse the credentials that you get
+    // out of the keychain here before returning them.
+      ok: true,
+      credentials: credentials
+    }))
+    .catch(() => ({
+      ok: false,
+      error: 'Failed to get credentials!'
+    }))
 }
 
 // Removes the credentials from the keychain.
@@ -49,10 +53,12 @@ export function fetchAuth (url) {
 
 export function deleteAuth (url) {
   return Keychain.resetInternetCredentials(url)
-    .then(function () {
-      return { ok: true, error: null }
-    })
-    .catch(error => {
-      return { ok: false, error: error }
-    })
+    .then(() => ({
+      ok: true,
+      error: null
+    }))
+    .catch(() => ({
+      ok: false,
+      error: 'Failed to delete credentials!'
+    }))
 }
