@@ -54,7 +54,7 @@ const remove = async function (context) {
         delete: `import { fetchAuth } from '../Services/Keychain'\n`
       })
       ignite.patchInFile(`${APP_PATH}/App/Sagas/StartupSagas.js`, {
-        delete: `// const auth = yield call(fetchAuth, 'https://your.cool.url')`
+        delete: `// const auth = yield call(fetchAuth, 'https://your.cool.url')\n`
       })
     }
   }
