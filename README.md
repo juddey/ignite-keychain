@@ -1,10 +1,3 @@
-# My Plugin
+# ignite-keychain
 
-This is where you would put an intro to your plugin, and maybe a few examples of usage. 
-
-## Example
-
-```js
-console.log("Hello World")
-```
-
+This plugin adds [react-native-keychain](https://github.com/oblador/react-native-keychain) to your [ignite](https://github.com/infinitered/ignite) project.
