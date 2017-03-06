@@ -13,7 +13,10 @@ const add = async function (context) {
 
   // Copy the example Keychain js file.
   if (!filesystem.exists(`${APP_PATH}/App/Services/Keychain.js`)) {
-    filesystem.copy(`${PLUGIN_PATH}/templates/Keychain.js`, `${APP_PATH}/App/Services/Keychain.js`)
+    filesystem.copy(
+      `${PLUGIN_PATH}/templates/Keychain.js`,
+      `${APP_PATH}/App/Services/Keychain.js`
+    )
   }
 
   // Import the Keychain file somewhere useful (say, when logging in.)

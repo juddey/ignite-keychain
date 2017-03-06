@@ -20,11 +20,13 @@ export default class IgniteKeychain {
 
   storeAuth (url, client, token, uid, expiry) {
     let out = [client, token, expiry].join()
-    Keychain.setInternetCredentials(url, uid, out).then(function () {
-      return { ok: true, error: null }
-    }).catch(function () {
-      return { ok: false, error: 'Failed to get credentials!' }
-    })
+    Keychain.setInternetCredentials(url, uid, out)
+      .then(function () {
+        return { ok: true, error: null }
+      })
+      .catch(function () {
+        return { ok: false, error: 'Failed to get credentials!' }
+      })
   }
 
   // Retrieves the credentials from the keychain
@@ -33,13 +35,13 @@ export default class IgniteKeychain {
   // interact with your API endpoint.
 
   fetchAuth (url) {
-    Keychain
-      .getInternetCredentials(url)
+    Keychain.getInternetCredentials(url)
       .then(function (credentials) {
         // You might want to parse the credentials that you get
         // out of the keychain here before returning them.
         return credentials
-      }).catch(function () {
+      })
+      .catch(function () {
         return { error: 'Failed to get credentials!' }
       })
   }
@@ -49,12 +51,11 @@ export default class IgniteKeychain {
   // from your service.
 
   deleteAuth (url) {
-    Keychain
-      .resetInternetCredentials(url)
+    Keychain.resetInternetCredentials(url)
       .then(function () {
         return { ok: true, error: null }
       })
-      .catch((error) => {
+      .catch(error => {
         return { ok: false, error: error }
       })
   }
