@@ -9,54 +9,50 @@ Thanx @oblador!
 */
 import * as Keychain from 'react-native-keychain'
 
-export default class IgniteKeychain {
-  // This function stores the credentials you got from
-  // the authentication server. Parameters are examples.
-  // url: The site youre authenticating against.
-  // client: a client ID (you might not always have this)
-  // token: the access token
-  // uid: the autentication server's user ID for this user (if any)
-  // expiry: When the token expires. Assumes integer representation.
+// This function stores the credentials you got from
+// the authentication server. Parameters are examples.
+// url: The site youre authenticating against.
+// client: a client ID (you might not always have this)
+// token: the access token
+// uid: the autentication server's user ID for this user (if any)
+// expiry: When the token expires. Assumes integer representation.
 
-  storeAuth (url, client, token, uid, expiry) {
-    let out = [client, token, expiry].join()
-    Keychain.setInternetCredentials(url, uid, out)
-      .then(function () {
-        return { ok: true, error: null }
-      })
-      .catch(function () {
-        return { ok: false, error: 'Failed to get credentials!' }
-      })
-  }
+export function storeAuth (url, client, token, uid, expiry) {
+  let out = [client, token, expiry].join()
+  return Keychain.setInternetCredentials(url, uid, out)
+    .then(function () {
+      return { ok: true, error: null }
+    })
+    .catch(function () {
+      return { ok: false, error: 'Failed to get credentials!' }
+    })
+}
 
-  // Retrieves the credentials from the keychain
-  // that you stored in storeAuth. You might want
-  // to call this function when you're about to
-  // interact with your API endpoint.
+// Retrieves the credentials from the keychain that you stored in storeAuth.
+// You might want to call this function when you're about to interact
+// with your API endpoint.
 
-  fetchAuth (url) {
-    Keychain.getInternetCredentials(url)
-      .then(function (credentials) {
-        // You might want to parse the credentials that you get
-        // out of the keychain here before returning them.
-        return credentials
-      })
-      .catch(function () {
-        return { error: 'Failed to get credentials!' }
-      })
-  }
+export function fetchAuth (url) {
+  return Keychain.getInternetCredentials(url)
+    .then(function (credentials) {
+      // You might want to parse the credentials that you get
+      // out of the keychain here before returning them.
+      return { ok: true, credentials: credentials }
+    })
+    .catch(function () {
+      return { error: 'Failed to get credentials!' }
+    })
+}
 
-  // Removes the credentials from the keychain.
-  // Use this when a user logs out or deregisters
-  // from your service.
+// Removes the credentials from the keychain.
+// Use this when a user logs out or deregisters from your service.
 
-  deleteAuth (url) {
-    Keychain.resetInternetCredentials(url)
-      .then(function () {
-        return { ok: true, error: null }
-      })
-      .catch(error => {
-        return { ok: false, error: error }
-      })
-  }
+export function deleteAuth (url) {
+  return Keychain.resetInternetCredentials(url)
+    .then(function () {
+      return { ok: true, error: null }
+    })
+    .catch(error => {
+      return { ok: false, error: error }
+    })
 }
