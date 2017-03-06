@@ -19,11 +19,16 @@ const add = async function (context) {
     )
   }
 
-  // Import the Keychain file somewhere useful (say, when logging in.)
-  if (filesystem.exists(`${APP_PATH}/App/Sagas/LoginSagas.js`)) {
-    ignite.patchInFile(`${APP_PATH}/App/Sagas/LoginSagas.js`, {
-      insert: `import { storeAuth } from '../Services/Keychain'`,
-      before: `import LoginActions from '../Redux/LoginRedux'`
+  // Import the Keychain file somewhere useful (say, when starting the app.)
+  // Also add an commented example.
+  if (filesystem.exists(`${APP_PATH}/App/Sagas/StartupSagas.js`)) {
+    ignite.patchInFile(`${APP_PATH}/App/Sagas/StartupSagas.js`, {
+      insert: `import { fetchAuth } from '../Services/Keychain'`,
+      after: `import { is } from 'ramda'`
+    })
+    ignite.patchInFile(`${APP_PATH}/App/Sagas/StartupSagas.js`, {
+      insert: `// const auth = yield call(fetchAuth, 'https://your.cool.url')`,
+      after: 'export function'
     })
   }
 }
@@ -44,9 +49,12 @@ const remove = async function (context) {
     // Remove the Keychain Example file.
     filesystem.remove(`${APP_PATH}/App/Services/Keychain.js`)
     // Remove the patch from LoginSaga.
-    if (filesystem.exists(`${APP_PATH}/App/Sagas/LoginSagas.js`)) {
-      ignite.patchInFile(`${APP_PATH}/App/Sagas/LoginSagas.js`, {
-        delete: `import { storeAuth } from '../Services/Keychain'\n`
+    if (filesystem.exists(`${APP_PATH}/App/Sagas/StartupSagas.js`)) {
+      ignite.patchInFile(`${APP_PATH}/App/Sagas/StartupSagas.js`, {
+        delete: `import { fetchAuth } from '../Services/Keychain'\n`
+      })
+      ignite.patchInFile(`${APP_PATH}/App/Sagas/StartupSagas.js`, {
+        delete: `// const auth = yield call(fetchAuth, 'https://your.cool.url')`
       })
     }
   }

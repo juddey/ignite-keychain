@@ -2,7 +2,7 @@ const test = require('ava')
 const sinon = require('sinon')
 const plugin = require('../plugin')
 
-test('adds the proper npm module, copies file, and does not add to LoginSaga ', async t => {
+test('adds the proper npm module, copies file, and does not add to StartupSaga ', async t => {
   // spy on few things so we know they're called
   const addModule = sinon.spy()
   const addPluginComponentExample = sinon.spy()
@@ -24,7 +24,7 @@ test('adds the proper npm module, copies file, and does not add to LoginSaga ', 
   t.true(patchInFile.notCalled)
 })
 
-test('adds the proper npm module, does not copy file, and adds to LoginSaga ', async t => {
+test('adds the proper npm module, does not copy file, and adds to StartupSaga ', async t => {
   // spy on few things so we know they're called
   const addModule = sinon.spy()
   const addPluginComponentExample = sinon.spy()
@@ -43,5 +43,5 @@ test('adds the proper npm module, does not copy file, and adds to LoginSaga ', a
   t.true(addModule.calledWith('react-native-keychain', { link: true }))
   t.true(exists.calledTwice)
   t.true(copy.notCalled)
-  t.true(patchInFile.called)
+  t.true(patchInFile.calledTwice)
 })

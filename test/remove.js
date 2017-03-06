@@ -22,13 +22,16 @@ test('removes Keychain and sample code', async t => {
   t.true(remove.called)
   t.true(patchInFile.called)
   t.is(remove.args[0][0], `${process.cwd()}/App/Services/Keychain.js`)
-  t.is(patchInFile.args[0][0], `${process.cwd()}/App/Sagas/LoginSagas.js`)
+  t.is(patchInFile.args[0][0], `${process.cwd()}/App/Sagas/StartupSagas.js`)
   t.is(
     patchInFile.args[0][1].delete,
-    "import { storeAuth } from '../Services/Keychain'\n"
+    "import { fetchAuth } from '../Services/Keychain'\n"
+  )
+  t.is(
+    patchInFile.args[1][1].delete,
+    "// const auth = yield call(fetchAuth, 'https://your.cool.url')"
   )
 })
-
 test('removes Keychain Module, but leaves sample code intact', async t => {
   const removeModule = sinon.spy()
   const confirm = sinon.stub().returns(false)
