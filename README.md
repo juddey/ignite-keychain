@@ -8,7 +8,7 @@ This plugin adds [react-native-keychain](https://github.com/oblador/react-native
 
 ```
 cd /path/to/your/ignite/project
-ignite add ignite-keychain
+ignite add keychain
 ```
 
 No, really. thats it.
