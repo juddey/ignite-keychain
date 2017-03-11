@@ -4,6 +4,7 @@
 const NPM_MODULE_NAME = 'react-native-keychain'
 const PLUGIN_PATH = __dirname
 const APP_PATH = process.cwd()
+const EXAMPLE_FILE = 'KeychainComponentExample.js'
 
 const add = async function (context) {
   const { ignite, filesystem } = context
@@ -11,13 +12,16 @@ const add = async function (context) {
   // install a npm module and link it
   await ignite.addModule(NPM_MODULE_NAME, { link: true })
 
-  // Copy the example Keychain js file.
+  // Copy the service Keychain js file.
   if (!filesystem.exists(`${APP_PATH}/App/Services/Keychain.js`)) {
     filesystem.copy(
       `${PLUGIN_PATH}/templates/Keychain.js`,
       `${APP_PATH}/App/Services/Keychain.js`
     )
   }
+
+  // copy the component example file (if examples are turned on)
+  await ignite.addPluginComponentExample(EXAMPLE_FILE, { title: 'Keychain Example' })
 
   // Import the Keychain file somewhere useful (say, when starting the app.)
   // Also add an commented example.
@@ -46,7 +50,11 @@ const remove = async function (context) {
     'Do you want to remove the Ignite Keychain boilerplate?'
   )
   if (removeKeychain) {
-    // Remove the Keychain Example file.
+
+    // remove the component example
+    await ignite.removePluginComponentExample(EXAMPLE_FILE)
+
+    // Remove the Keychain service file.
     filesystem.remove(`${APP_PATH}/App/Services/Keychain.js`)
     // Remove the patch from LoginSaga.
     if (filesystem.exists(`${APP_PATH}/App/Sagas/StartupSagas.js`)) {
